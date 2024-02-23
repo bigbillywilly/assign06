@@ -56,6 +56,23 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 	}
 
+	// public void insert(int index, E element) throws IndexOutOfBoundsException {
+	// 	if (index > size && index < 0)
+	// 		throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
+
+	// 	if (index == 0) {
+	// 		insertFirst(element);
+	// 	} else {
+	// 		Node<E> current = head;
+	// 		for (int i = 0; i < index - 1; i++) {
+	// 			current = current.next;
+	// 		}
+	// 		Node<E> newNode = new Node<>(element, current.next);
+	// 		current.next = newNode;
+	// 		size++;
+	// 	}
+	// }
+
 	@Override
 	public E getFirst() throws NoSuchElementException {
 		return get(0);
