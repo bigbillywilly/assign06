@@ -38,41 +38,20 @@ public class SinglyLinkedList<E> implements List<E> {
 	 */
 	@Override
 	public void insert(int index, E element) throws IndexOutOfBoundsException {
-		if (index > size() || index < 0)
+		if (index > size || index < 0)
 			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
 		if (index == 0) {
 			insertFirst(element);
 		} else {
-			int tempSize = size;
-			int tempTracker = 0;
-			for (int i = size - 1; i >= index; i--, tempTracker++) {
-				insertFirst(get(tempSize - 1));
+			Node<E> current = head;
+			for (int i = 0; i < index - 1; i++) {
+				current = current.link;
 			}
-			insertFirst(element);
-			for (int i = tempSize - tempTracker; i > 0; i--) {
-				insertFirst(get(tempSize));
-			}
-			this.size = tempSize + 1;
+			Node<E> newNode = new Node<>(element, current.link);
+			current.link = newNode;
+			size++;
 		}
 	}
-
-	// @Override
-	// public void insert(int index, E element) throws IndexOutOfBoundsException {
-	// 	if (index > size && index < 0)
-	// 		throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
-
-	// 	if (index == 0) {
-	// 		insertFirst(element);
-	// 	} else {
-	// 		Node<E> current = head;
-	// 		for (int i = 0; i < index - 1; i++) {
-	// 			current = current.link;
-	// 		}
-	// 		Node<E> newNode = new Node<>(element, current.link);
-	// 		current.link = newNode;
-	// 		size++;
-	// 	}
-	// }
 
 	@Override
 	public E getFirst() throws NoSuchElementException {
@@ -81,7 +60,6 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 		return get(0);
 	}
-
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
@@ -111,12 +89,12 @@ public class SinglyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
 		if (index == 0)
 			deleteFirst();
-		
+
 		Node<E> current = head;
 		for (int i = 0; i < index - 1; i++) {
 			current = current.link;
 		}
-		
+
 		E tempDeleted = current.link.value;
 		current.link = current.link.link;
 		size--;
