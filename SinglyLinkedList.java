@@ -56,6 +56,7 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 	}
 
+	// @Override
 	// public void insert(int index, E element) throws IndexOutOfBoundsException {
 	// 	if (index > size && index < 0)
 	// 		throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
@@ -65,10 +66,10 @@ public class SinglyLinkedList<E> implements List<E> {
 	// 	} else {
 	// 		Node<E> current = head;
 	// 		for (int i = 0; i < index - 1; i++) {
-	// 			current = current.next;
+	// 			current = current.link;
 	// 		}
-	// 		Node<E> newNode = new Node<>(element, current.next);
-	// 		current.next = newNode;
+	// 		Node<E> newNode = new Node<>(element, current.link);
+	// 		current.link = newNode;
 	// 		size++;
 	// 	}
 	// }
