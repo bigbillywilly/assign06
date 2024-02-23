@@ -124,7 +124,8 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public void clear() {
-		this.head = new Node<E>(null, null);
+		head = null;
+		size = 0;
 	}
 
 	@Override
