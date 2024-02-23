@@ -76,8 +76,12 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public E getFirst() throws NoSuchElementException {
+		if (size == 0) {
+			throw new NoSuchElementException("List is empty.");
+		}
 		return get(0);
 	}
+
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
@@ -93,14 +97,31 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public E deleteFirst() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if (size == 0)
+			throw new NoSuchElementException("List is empty.");
+		E tempDeleted = head.value;
+		head = head.link;
+		size--;
+		return tempDeleted;
 	}
 
 	@Override
 	public E delete(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		if (index >= size || index < 0)
+			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
+		if (index == 0)
+			deleteFirst();
+		
+		Node<E> current = head;
+		for (int i = 0; i < index - 1; i++) {
+			current = current.link;
+		}
+		
+		E tempDeleted = current.link.value;
+		current.link = current.link.link;
+		size--;
+
+		return tempDeleted;
 	}
 
 	@Override
