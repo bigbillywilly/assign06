@@ -3,13 +3,6 @@ package assign06;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * A class representing a Singly-Linked List data type.
- * 
- * @param <E> - The data type of the list
- * @authors Elijah Potter & William Ngo
- * @version 2/22/2024
- */
 public class SinglyLinkedList<E> implements List<E> {
 	private int size = 0;
 	private Node<E> head;
@@ -40,6 +33,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	public void insert(int index, E element) throws IndexOutOfBoundsException {
 		if (index > size || index < 0)
 			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
+
 		if (index == 0) {
 			insertFirst(element);
 		} else {
@@ -58,19 +52,22 @@ public class SinglyLinkedList<E> implements List<E> {
 		if (size == 0) {
 			throw new NoSuchElementException("List is empty.");
 		}
-		return get(0);
+		return head.value;
 	}
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		if (index > size() || index < 0)
+		if (index >= size || index < 0)
 			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
-		Iterator<E> iter = iterator();
+		if (index == 0)
+			return head.value;
 
+		Node<E> current = head;
 		for (int i = 0; i < index; i++) {
-			iter.next();
+			current = current.link;
 		}
-		return iter.next();
+
+		return current.value;
 	}
 
 	@Override
@@ -89,6 +86,7 @@ public class SinglyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
 		if (index == 0)
 			deleteFirst();
+		Iterator<E> iter = iterator();
 
 		Node<E> current = head;
 		for (int i = 0; i < index - 1; i++) {
@@ -104,8 +102,14 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(E element) {
-		// TODO Auto-generated method stub
-		return 0;
+		Iterator<E> iter = iterator();
+		int i = 0;
+		while (iter.hasNext()) {
+			if (iter.next().equals(element))
+				return i;
+		}
+		i++;
+		return -1;
 	}
 
 	@Override
@@ -120,8 +124,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		this.head = new Node<E>(null, null);
 	}
 
 	@Override
@@ -161,10 +164,10 @@ public class SinglyLinkedList<E> implements List<E> {
 			nextCalled = true;
 			Node<E> tempNode = head;
 			for (int i = 0; i < pointer; i++) {
-				tempNode = tempNode.getLink();
+				tempNode = tempNode.link;
 			}
 			pointer++;
-			return tempNode.getValue();
+			return tempNode.value;
 		}
 
 		@Override
@@ -172,8 +175,18 @@ public class SinglyLinkedList<E> implements List<E> {
 			if (!nextCalled)
 				throw new IllegalStateException();
 			nextCalled = false;
-			// TODO remove "delete"
-			delete(pointer);
+
+			if(pointer == 0)
+				head = head.link;
+			
+			Node<E> current = head;
+			for(int i = 0; i < pointer-1; i++)
+				current = current.link;
+		
+
+			current.link = current.link.link;
+			size--;
+			
 		}
 
 	}
@@ -191,14 +204,6 @@ public class SinglyLinkedList<E> implements List<E> {
 		public Node(E value, Node<E> link) {
 			this.value = value;
 			this.link = link;
-		}
-
-		public Node<E> getLink() {
-			return link;
-		}
-
-		public E getValue() {
-			return value;
 		}
 
 	}
