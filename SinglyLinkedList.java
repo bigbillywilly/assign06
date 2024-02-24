@@ -3,6 +3,13 @@ package assign06;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * A class representing a Singly-Linked List data type.
+ * 
+ * @param <E> - The data type of the list
+ * @authors Elijah Potter & William Ngo
+ * @version 2/23/2024
+ */
 public class SinglyLinkedList<E> implements List<E> {
 	private int size = 0;
 	private Node<E> head;
@@ -86,13 +93,10 @@ public class SinglyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException("Index must be positive and within the size of the list.");
 		if (index == 0)
 			deleteFirst();
-		Iterator<E> iter = iterator();
-
 		Node<E> current = head;
 		for (int i = 0; i < index - 1; i++) {
 			current = current.link;
 		}
-
 		E tempDeleted = current.link.value;
 		current.link = current.link.link;
 		size--;
@@ -107,8 +111,8 @@ public class SinglyLinkedList<E> implements List<E> {
 		while (iter.hasNext()) {
 			if (iter.next().equals(element))
 				return i;
+			i++;
 		}
-		i++;
 		return -1;
 	}
 
@@ -124,18 +128,23 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public void clear() {
-		head = null;
+		this.head = new Node<E>(null, null);
 		size = 0;
 	}
 
 	@Override
 	public Object[] toArray() {
-		Object[] arr = new Object[size];
-		Iterator<E> iter = iterator();
-		for (int i = 0; i < size; i++) {
-			arr[i] = iter.next();
+		try {
+			Object[] arr = new Object[size];
+			Iterator<E> iter = iterator();
+			for (int i = 0; i < size; i++) {
+				arr[i] = iter.next();
+			}
+			return arr;
+		} catch (NullPointerException e) {
+			Object[] arr = new Object[0];
+			return arr;
 		}
-		return arr;
 	}
 
 	@Override
@@ -176,18 +185,13 @@ public class SinglyLinkedList<E> implements List<E> {
 			if (!nextCalled)
 				throw new IllegalStateException();
 			nextCalled = false;
-
-			if(pointer == 0)
-				head = head.link;
-			
 			Node<E> current = head;
-			for(int i = 0; i < pointer-1; i++)
+			for (int i = 0; i < pointer - 1; i++)
 				current = current.link;
-		
 
 			current.link = current.link.link;
 			size--;
-			
+
 		}
 
 	}
