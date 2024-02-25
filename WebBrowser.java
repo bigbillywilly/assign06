@@ -3,6 +3,9 @@ package assign06;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
+/**
+ * A class simulating a webbrowser
+ */
 public class WebBrowser {
 	private Stack<URL> forward = new LinkedListStack<>();
 	private Stack<URL> backward = new LinkedListStack<>();
@@ -23,7 +26,8 @@ public class WebBrowser {
 
 	public void visit(URL webpage) {
 		forward.clear();
-		backward.push(current);
+		if (current != null)
+			backward.push(current);
 		current = webpage;
 	}
 
@@ -45,14 +49,17 @@ public class WebBrowser {
 
 	public SinglyLinkedList<URL> history() {
 		SinglyLinkedList<URL> hist = new SinglyLinkedList<>();
-		if (!backward.isEmpty()) {
+		if (!backward.isEmpty() && backward.peek() != null) {
 			int limit = backward.size();
 			for (int i = 0; i < limit; i++) {
 				hist.insert(i, backward.pop());
 			}
-			for (int i = 0; i < hist.size(); i++) {
+			for (int i = hist.size() - 1; i >= 0; i--) {
 				backward.push(hist.get(i));
 			}
+			hist.insertFirst(current);
+			return hist;
+		} else if (current != null) {
 			hist.insertFirst(current);
 			return hist;
 		} else
