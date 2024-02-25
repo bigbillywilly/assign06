@@ -1,16 +1,12 @@
 package assign06;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedListStack<E> implements Stack<E> {
-
 	private SinglyLinkedList<E> list;
-	private int size;
-	
+
 	public LinkedListStack() {
 		this.list = new SinglyLinkedList<>();
-		this.size = list.size();
 	}
 
 	/**
@@ -36,8 +32,8 @@ public class LinkedListStack<E> implements Stack<E> {
 	 * @throws NoSuchElementException if the stack is empty
 	 */
 	@Override
-	public E peek() throws NoSuchElementException{
-		if(this.isEmpty())
+	public E peek() throws NoSuchElementException {
+		if (this.isEmpty())
 			throw new NoSuchElementException("List is empty");
 		return list.getFirst();
 	}
@@ -49,8 +45,8 @@ public class LinkedListStack<E> implements Stack<E> {
 	 * @throws NoSuchElementException if the stack is empty
 	 */
 	@Override
-	public E pop() throws NoSuchElementException{
-		if(this.isEmpty())
+	public E pop() throws NoSuchElementException {
+		if (this.isEmpty())
 			throw new NoSuchElementException("List is empty");
 		return list.deleteFirst();
 	}
@@ -64,13 +60,13 @@ public class LinkedListStack<E> implements Stack<E> {
 	public void push(E element) {
 		list.insertFirst(element);
 	}
-	
+
 	/**
 	 * @return the number of elements in the stack
 	 */
 	@Override
 	public int size() {
-		return size;
-		
+		return list.size();
+
 	}
 }
