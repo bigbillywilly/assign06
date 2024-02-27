@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * A class containing test cases for the WebBrowser class
+ * 
+ * @authors Elijah Potter & William Ngo
+ * @version 2/27/2024
  */
 class WebBrowserTest {
 	SinglyLinkedList<URL> history = new SinglyLinkedList<>();
