@@ -6,7 +6,12 @@ import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/**
+ * Class for the tests of the LinkedListStack class.
+ * 
+ * @author William Ngo and Elijah Potter
+ * @version 02/27/2023
+ */
 public class LinkedListStackTest {
 
 	LinkedListStack<Integer> emptyStack = new LinkedListStack<>();
@@ -22,24 +27,32 @@ public class LinkedListStackTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertTrue(emptyStack.isEmpty());
+	void testIsEmptyBase() {
 		assertFalse(oneStack.isEmpty());
 		assertFalse(bigStack.isEmpty());
 	}
+	
+	@Test
+	void testIsEmptyEdge() {
+		assertTrue(emptyStack.isEmpty());
+	}
 
 	@Test
-	void testClear() {
+	void testClearBasic() {
 		oneStack.clear();
 		assertTrue(oneStack.isEmpty());
 		bigStack.clear();
 		assertTrue(bigStack.isEmpty());
+	}
+	
+	@Test
+	void testClearEdge() {
 		emptyStack.clear();
 		assertTrue(emptyStack.isEmpty());
 	}
 	
 	@Test
-	void testPeekEdgeAndBasic() {
+	void testPeekBasic() {
 		assertEquals(99, bigStack.peek());
 		assertEquals(1, oneStack.peek());
 	}
@@ -47,6 +60,8 @@ public class LinkedListStackTest {
 	@Test
 	void testPeekException() {
 		assertThrows(NoSuchElementException.class, () -> {emptyStack.peek();});
+		bigStack.clear();
+		assertThrows(NoSuchElementException.class, () -> {bigStack.peek();});
 	}
 	
 	@Test
@@ -62,21 +77,31 @@ public class LinkedListStackTest {
 	}
 	
 	@Test
-	void testPushEdgeAndBasic() {
+	void testPushBasic() {
 		oneStack.push(2);
 		assertEquals(2, oneStack.peek());
-		emptyStack.push(100);
-		assertEquals(100, emptyStack.peek());
 		bigStack.push(101);
 		assertEquals(101, bigStack.peek());
 	}
 	
+	@Test
+	void testPushEdge() {
+		emptyStack.push(100);
+		assertEquals(100, emptyStack.peek());
+	}
 	
 	@Test
-	void testSizeEdgeAndBasic() {
+	void testSizeBasic() {
 		assertEquals(100, bigStack.size());
 		assertEquals(1, oneStack.size());
+		
+	}
+	
+	@Test
+	void testSizeEdge() {
 		assertEquals(0, emptyStack.size());
+		bigStack.clear();
+		assertEquals(0, bigStack.size());
 	}
 
 }
