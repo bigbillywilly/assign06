@@ -2,9 +2,20 @@ package assign06;
 
 import java.util.NoSuchElementException;
 
+/**
+ * A class to represent a LinkedListStack. Backed by a SinglyLinkedList.
+ * 
+ * @param <E> - any generic type
+ * @authors  Elijah Potter and William Ngo
+ * @version 2/27/2024
+ */
 public class LinkedListStack<E> implements Stack<E> {
+
 	private SinglyLinkedList<E> list;
 
+	/**
+	 * Constructor for a LinkedListStack.
+	 */
 	public LinkedListStack() {
 		this.list = new SinglyLinkedList<>();
 	}
@@ -18,6 +29,8 @@ public class LinkedListStack<E> implements Stack<E> {
 	}
 
 	/**
+	 * Method that determines whether a list is empty.
+	 * 
 	 * @return true if the stack contains no elements; false, otherwise.
 	 */
 	@Override
@@ -62,6 +75,8 @@ public class LinkedListStack<E> implements Stack<E> {
 	}
 
 	/**
+	 * Method that returns the size.
+	 * 
 	 * @return the number of elements in the stack
 	 */
 	@Override
